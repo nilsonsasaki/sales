@@ -1,10 +1,25 @@
 package io.github.nilsonsasaki.domain.entity;
 
-public class OrderItem {
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "orderItem")
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
-    private ClientOrder orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "clientOrder_id")
+    private ClientOrder clientOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product productId;
+
+    @Column(name = "quantity")
     private Integer quantity;
 
     public Integer getId() {
@@ -15,12 +30,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public ClientOrder getOrderId() {
-        return orderId;
+    public ClientOrder getClientOrder() {
+        return clientOrder;
     }
 
-    public void setOrderId(ClientOrder orderId) {
-        this.orderId = orderId;
+    public void setClientOrder(ClientOrder clientOrder) {
+        this.clientOrder = clientOrder;
     }
 
     public Product getProductId() {
